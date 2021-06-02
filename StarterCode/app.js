@@ -32,11 +32,11 @@ d3.csv("./assets/data/data.csv").then(function(scatterData){
 
     //Scale functions:
     var xLinearScale = d3.scaleLinear()
-        .domain([0, d3.max(scatterData, d => d.poverty)])
+        .domain([5, d3.max(scatterData, d => d.poverty)])
         .range([0, width]);
     
     var yLinearScale = d3.scaleLinear()
-        .domain([0, d3.max(scatterData, d => d.healthcare)])
+        .domain([5, d3.max(scatterData, d => d.healthcare)])
         .range([height, 0]);
     
     //Create axis functions:    
@@ -59,28 +59,26 @@ d3.csv("./assets/data/data.csv").then(function(scatterData){
     .append("circle")
     .attr("cx", d => xLinearScale(d.poverty))
     .attr("cy", d => yLinearScale(d.healthcare))
-    .attr("r", "15")
+    .attr("r", "12")
     .attr("fill", "red")
     .attr("opacity", ".4");
 
-    chartGroup //.append("g")
-    .selectAll("text")
+    var textChart = chartGroup.selectAll("text")
     .data(scatterData)
     .enter()
-    .append('text')
+    .append("text")
     .attr("y", d => yLinearScale(d.healthcare))
-    .attr("x", d => xLinearScale(d.healthcare))
+    .attr("x", d => xLinearScale(d.poverty))
+    .attr("font-size", "10px")
     .text(d => d.abbr)
-    .attr("alignment-baseline", "central")
+    //.attr("alignment-baseline", "central")
     .attr("text-anchor", "middle")
-    .classed(".stateText", true)
+    //.classed(".stateText", true)
 
     chartGroup.append("text")
     .attr("transform", `translate(${width / 2}, ${height + margin.top + 20})`)
     .attr("text-anchor", "middle")
     .attr("class", "axisText")
-    //.attr("y", 0 - margin.left + 40)
-    //.attr("x", -90 - (height / 2))
     .text("In Poverty (%)");
 
     chartGroup.append("text")
@@ -88,7 +86,6 @@ d3.csv("./assets/data/data.csv").then(function(scatterData){
     .attr("y", 0 - margin.left + 40)
     .attr("x", -90 - (height / 2))
     .attr("class", "axisText")
-    .attr("alignment-baseline", "central")
     .text("Lacks Healthcare (%)");
 
 
