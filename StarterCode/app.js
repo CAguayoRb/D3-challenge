@@ -32,7 +32,7 @@ d3.csv("./assets/data/data.csv").then(function(scatterData){
 
     //Scale functions:
     var xLinearScale = d3.scaleLinear()
-        .domain([5, d3.max(scatterData, d => d.poverty)])
+        .domain([0, d3.max(scatterData, d => d.poverty)])
         .range([0, width]);
     
     var yLinearScale = d3.scaleLinear()
